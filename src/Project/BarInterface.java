@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import SQL.DBHelper;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -81,6 +82,7 @@ public class BarInterface extends javax.swing.JPanel {
         DisInputError = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        CusID = new javax.swing.JLabel();
         BarInventoryInterface = new javax.swing.JPanel();
         updatebtn = new javax.swing.JButton();
         deletebtn = new javax.swing.JButton();
@@ -347,6 +349,11 @@ public class BarInterface extends javax.swing.JPanel {
         jButton22.setMaximumSize(new java.awt.Dimension(180, 47));
         jButton22.setMinimumSize(new java.awt.Dimension(180, 47));
         jButton22.setPreferredSize(new java.awt.Dimension(180, 47));
+        jButton22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton22MouseClicked(evt);
+            }
+        });
 
         btnUpdate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Update.png"))); // NOI18N
@@ -397,47 +404,52 @@ public class BarInterface extends javax.swing.JPanel {
             BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
                 .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                            .addGap(132, 132, 132)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                            .addGap(99, 99, 99)
-                            .addComponent(chckbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                            .addGap(31, 31, 31)
-                            .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(36, 36, 36)
-                                    .addComponent(quanty, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(iid, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                                    .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(addToTable, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(ItemIDError, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                                .addComponent(QuntityError, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
-                            .addGap(15, 15, 15)
-                            .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(56, 56, 56))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addGap(127, 127, 127)))))
                     .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                    .addGap(99, 99, 99)
+                                    .addComponent(chckbtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                    .addGap(31, 31, 31)
+                                    .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(36, 36, 36)
+                                            .addComponent(quanty, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(iid, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                            .addComponent(jButton21, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(addToTable, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(ItemIDError, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                                        .addComponent(QuntityError, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
+                                    .addGap(15, 15, 15)
+                                    .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(56, 56, 56))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BarBillingInterfaceLayout.createSequentialGroup()
+                                            .addComponent(jLabel11)
+                                            .addGap(127, 127, 127)))))
+                            .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE))
+                    .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(CusID, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(74, 74, 74)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
@@ -495,7 +507,9 @@ public class BarInterface extends javax.swing.JPanel {
                 .addGap(15, 15, 15)
                 .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(BarBillingInterfaceLayout.createSequentialGroup()
-                        .addComponent(jLabel10)
+                        .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(CusID, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(15, 15, 15)
                         .addGroup(BarBillingInterfaceLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -828,6 +842,7 @@ public class BarInterface extends javax.swing.JPanel {
             String name = obj3.getcustomerName(BID);
             System.out.println(name);
             JOptionPane.showMessageDialog(this,name,"Customer Found",JOptionPane.INFORMATION_MESSAGE);
+            CusID.setText(BID);
             bid++;
         }else {
             JOptionPane.showMessageDialog(this,"Customer Not Found","Error",JOptionPane.ERROR_MESSAGE);
@@ -1120,6 +1135,20 @@ public class BarInterface extends javax.swing.JPanel {
         
     }//GEN-LAST:event_liquortable2MouseClicked
 
+    private void jButton22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton22MouseClicked
+        // TODO add your handling code here:
+        String CID = CusID.getText();
+        int ID = Integer.parseInt(txtbillid.getText());
+        String Total = txttot.getText();
+        String Discount = disfield.getText();
+        String NetPrice = txtnet.getText();
+        try{
+                DBHelper.PrintCustomerBill(CID,ID,Total,Discount,NetPrice);
+            } catch (java.lang.NumberFormatException | JRException e){
+                e.printStackTrace();
+            }
+    }//GEN-LAST:event_jButton22MouseClicked
+
     public void PanelNavigation(java.awt.event.MouseEvent evt){
         
         if(evt.getSource() == BarBilling){
@@ -1173,6 +1202,7 @@ public class BarInterface extends javax.swing.JPanel {
     private javax.swing.JButton BarInventory;
     private javax.swing.JPanel BarInventoryInterface;
     private javax.swing.JButton BarReports;
+    private javax.swing.JLabel CusID;
     private javax.swing.JLabel DisInputError;
     private javax.swing.JButton Homebtn;
     private javax.swing.JLabel ItemIDError;

@@ -143,9 +143,12 @@ public class DBHelper {
             e.printStackTrace();
         }
     }
+
+   
     
     //Create a Method to select all the records from the menu table
   ResultSet rs;
+    private String BAR_Tb_N2;
     public  ResultSet SelectMenu()
     {
         try{
@@ -2384,7 +2387,7 @@ public class DBHelper {
             e.printStackTrace();
         }
     }
-    //
+    ///Adding Bill Details
     public boolean AddToBarBill(int bid,double tot,double dis,double net,int boid){
         boolean stat = false;
         try{
@@ -2591,6 +2594,33 @@ public class DBHelper {
             System.out.println("DeleteInventoryRow Exception detected");
         }
         return msg;
+    }
+    
+    public static void PrintCustomerBill(String CID,int ID, String Total, String Discount, String NetPrice)throws JRException{
+        JasperDesign jdesign = JRXmlLoader.load("src\\Reports\\BarBillInvoice.jrxml");
+        HashMap map = new HashMap();
+        map.put("BookingID", CID);
+        map.put("BarID", ID);
+        map.put("Totalprice", Total);
+        map.put("Discount", Discount);
+        map.put("Netprice", NetPrice);
+        JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+        JasperPrint jprint = JasperFillManager.fillReport(jreport, map , con);
+        JasperViewer.viewReport(jprint, false);
+    }
+    
+    //select method
+    public ResultSet getBarOrderTable(){
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT * FROM "+ BAR_Tb_N2;
+            PreparedStatement ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+        }catch(SQLException e){
+            System.out.println("getInventory Exception detected");
+        }
+        
+        return rs;
     }
     
     
