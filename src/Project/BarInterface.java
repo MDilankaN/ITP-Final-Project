@@ -114,7 +114,6 @@ public class BarInterface extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         BarOrderTable = new javax.swing.JTable();
         DailyReport = new javax.swing.JButton();
-        MonthlyReport = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         datepickerBar = new com.toedter.calendar.JDateChooser();
         jLabel18 = new javax.swing.JLabel();
@@ -833,8 +832,6 @@ public class BarInterface extends javax.swing.JPanel {
             }
         });
 
-        MonthlyReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Monthly.png"))); // NOI18N
-
         jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel17.setText("Bar Reports");
 
@@ -858,7 +855,6 @@ public class BarInterface extends javax.swing.JPanel {
                         .addGap(32, 32, 32)
                         .addGroup(BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(DailyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(MonthlyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addComponent(datepickerBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dateError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -877,9 +873,7 @@ public class BarInterface extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(dateError, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(41, 41, 41)
-                        .addComponent(DailyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(MonthlyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(DailyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BarReportPanelLayout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -1256,8 +1250,10 @@ public class BarInterface extends javax.swing.JPanel {
             
 
             String Date = "/";
-            DateFormat DateFor = new SimpleDateFormat("YYYY-MM-DD");
+            DateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
             Date = DateFor.format(datepickerBar.getDate());
+            System.out.println(Date);
+           
 
             if(Date.equals("/")){
                 dateError.setText("Select Date");
@@ -1350,7 +1346,6 @@ public class BarInterface extends javax.swing.JPanel {
     private javax.swing.JLabel DisInputError;
     private javax.swing.JButton Homebtn;
     private javax.swing.JLabel ItemIDError;
-    private javax.swing.JButton MonthlyReport;
     private javax.swing.JLabel QuntityError;
     private javax.swing.JPanel SideBar;
     private javax.swing.JLabel Tempvalholder;
