@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import ProjectDB.DbClass;
 import static ProjectDB.DbClass.Database;
+import static Table.TableModel.BOrder.BAR_Tb_N2;
 import static Table.TableModel.BarBillInvoice.BAR_COL3_1;
 import static Table.TableModel.BarBillInvoice.BAR_COL3_2;
 import static Table.TableModel.BarBillInvoice.BAR_COL3_3;
@@ -148,7 +149,7 @@ public class DBHelper {
     
     //Create a Method to select all the records from the menu table
   ResultSet rs;
-    private String BAR_Tb_N2;
+   
     public  ResultSet SelectMenu()
     {
         try{
@@ -2374,6 +2375,7 @@ public class DBHelper {
             Double TotPrice;
             TotPrice = price * qun;
             
+            
             String sql2 = "INSERT INTO "+BAR_Tb_N3+" ("+BAR_COL3_2+","+BAR_COL3_3+","+BAR_COL3_4+","+BAR_COL3_5+","+BAR_COL3_6+","+BAR_COL3_7+","+BAR_COL3_8+","+BAR_COL3_9+") VALUES ("+iid+",'"+name+"','"+brand+"','"+size+"',"+price+","+qun+","+TotPrice+","+bid+")" ;
             PreparedStatement ps2 = con.prepareStatement(sql2);
             value = ps2.execute();
@@ -2388,10 +2390,12 @@ public class DBHelper {
         }
     }
     ///Adding Bill Details
-    public boolean AddToBarBill(int bid,double tot,double dis,double net,int boid){
+    public boolean AddToBarBill(double tot,double dis,double net,int boid){
         boolean stat = false;
+        java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime());
+        
         try{
-            String SQL = "INSERT INTO BarOrder (BarID ,totalPrice , Discount , netAmount , Booking_BID ) VALUES ("+bid+","+tot+","+dis+","+net+","+boid+")";
+            String SQL = "INSERT INTO BarOrder (Date , totalPrice , Discount , netAmount , Booking_BID ) VALUES ('"+sqlDate+"',"+tot+","+dis+","+net+","+boid+")";
             PreparedStatement ps = con.prepareStatement(SQL);
             stat = ps.execute();
             System.out.println(stat);
@@ -2596,9 +2600,10 @@ public class DBHelper {
         return msg;
     }
     
-    public static void PrintCustomerBill(String CID,int ID, String Total, String Discount, String NetPrice)throws JRException{
+    public static void PrintCustomerBill(String CID,String ID, String Total, String Discount, String NetPrice)throws JRException{
         JasperDesign jdesign = JRXmlLoader.load("src\\Reports\\BarBillInvoice.jrxml");
         HashMap map = new HashMap();
+        System.out.println(ID);
         map.put("BookingID", CID);
         map.put("BarID", ID);
         map.put("Totalprice", Total);
@@ -2617,10 +2622,22 @@ public class DBHelper {
             PreparedStatement ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
         }catch(SQLException e){
-            System.out.println("getInventory Exception detected");
+            System.out.println("getBarOrderTable Exception detected");
         }
         
         return rs;
+    }
+    
+    public void GetDateDataSet(String Date) throws JRException{
+        
+        JasperDesign jdesign = JRXmlLoader.load("src\\Reports\\DailyBarRep.jrxml");
+        HashMap map = new HashMap();
+        map.put("Givendate", Date);
+        JasperReport jreport = JasperCompileManager.compileReport(jdesign);
+        JasperPrint jprint = JasperFillManager.fillReport(jreport, map , con);
+        JasperViewer.viewReport(jprint, false);
+        
+        
     }
     
     
@@ -2671,6 +2688,9 @@ public class DBHelper {
                 return false;
             }
     }
+
+
+    
 
     
     

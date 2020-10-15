@@ -12,6 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
 import SQL.DBHelper;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import net.sf.jasperreports.engine.JRException;
 
 /**
@@ -27,6 +29,7 @@ public class BarInterface extends javax.swing.JPanel {
         initComponents();
         ShowInventory();
         ShowInventory2();
+        getBarOrderTable();
     }
 
     /**
@@ -107,6 +110,15 @@ public class BarInterface extends javax.swing.JPanel {
         clearbtn = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         liquortable2 = new javax.swing.JTable();
+        BarReportPanel = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        BarOrderTable = new javax.swing.JTable();
+        DailyReport = new javax.swing.JButton();
+        MonthlyReport = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        datepickerBar = new com.toedter.calendar.JDateChooser();
+        jLabel18 = new javax.swing.JLabel();
+        dateError = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1360, 590));
         setMinimumSize(new java.awt.Dimension(1360, 590));
@@ -154,6 +166,11 @@ public class BarInterface extends javax.swing.JPanel {
         BarReports.setPreferredSize(new java.awt.Dimension(180, 47));
         BarReports.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Group 75 Orange.png"))); // NOI18N
         BarReports.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Group 75 Orange.png"))); // NOI18N
+        BarReports.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BarReportsMouseClicked(evt);
+            }
+        });
 
         Homebtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Homebtn.png"))); // NOI18N
         Homebtn.setMaximumSize(new java.awt.Dimension(178, 45));
@@ -788,6 +805,90 @@ public class BarInterface extends javax.swing.JPanel {
 
         jPanel4.add(BarInventoryInterface, "card3");
 
+        BarReportPanel.setMaximumSize(new java.awt.Dimension(1125, 590));
+        BarReportPanel.setMinimumSize(new java.awt.Dimension(1125, 590));
+
+        BarOrderTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(BarOrderTable);
+
+        DailyReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Daily.png"))); // NOI18N
+        DailyReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DailyReportMouseClicked(evt);
+            }
+        });
+        DailyReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DailyReportActionPerformed(evt);
+            }
+        });
+
+        MonthlyReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/BarButtons/Set/Monthly.png"))); // NOI18N
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel17.setText("Bar Reports");
+
+        datepickerBar.setDateFormatString("yyyy-MM-dd");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel18.setText("Pick a Date");
+
+        dateError.setForeground(new java.awt.Color(255, 0, 0));
+
+        javax.swing.GroupLayout BarReportPanelLayout = new javax.swing.GroupLayout(BarReportPanel);
+        BarReportPanel.setLayout(BarReportPanelLayout);
+        BarReportPanelLayout.setHorizontalGroup(
+            BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BarReportPanelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(BarReportPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addGroup(BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(DailyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(MonthlyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(datepickerBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dateError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+        BarReportPanelLayout.setVerticalGroup(
+            BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BarReportPanelLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(BarReportPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BarReportPanelLayout.createSequentialGroup()
+                        .addGap(90, 90, 90)
+                        .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(datepickerBar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateError, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(DailyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(MonthlyReport, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, BarReportPanelLayout.createSequentialGroup()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+
+        jPanel4.add(BarReportPanel, "card4");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -862,9 +963,10 @@ public class BarInterface extends javax.swing.JPanel {
         double id = 0 ,qun = 0;
         if(iid.getText().equals("")){
             ItemIDError.setText("Field Empty");
-        }else if(quanty.getText().equals("")){
+        }
+        if(quanty.getText().equals("")){
             QuntityError.setText("Field Empty");
-        }else{
+        }
             try{
                 id = Double.parseDouble(iid.getText());
             }catch(Exception e){
@@ -874,13 +976,11 @@ public class BarInterface extends javax.swing.JPanel {
                 qun = Double.parseDouble(quanty.getText());
                 DBHelper b = new DBHelper();
                 b.AddTocustomerbill(id,qun,bid);
-                ShowToCustomerBill(bid);
+                ShowToCustomerBill(bid);   
+                
             }catch(Exception e){
                 QuntityError.setText("Input Number Value");
             }
-            
-            
-        }
 
     }//GEN-LAST:event_addToTableActionPerformed
 
@@ -918,7 +1018,7 @@ public class BarInterface extends javax.swing.JPanel {
             DBHelper obj7 = new DBHelper();
             double neta = tot - dis;
             txtnet.setText(String.format("%.2f", neta));
-            obj7.AddToBarBill(bid, tot, dis, neta, bid);
+            obj7.AddToBarBill(tot, dis, neta, bid);
 
         }
 
@@ -1138,7 +1238,7 @@ public class BarInterface extends javax.swing.JPanel {
     private void jButton22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton22MouseClicked
         // TODO add your handling code here:
         String CID = CusID.getText();
-        int ID = Integer.parseInt(txtbillid.getText());
+        String ID = txtbillid.getText();
         String Total = txttot.getText();
         String Discount = disfield.getText();
         String NetPrice = txtnet.getText();
@@ -1149,20 +1249,54 @@ public class BarInterface extends javax.swing.JPanel {
             }
     }//GEN-LAST:event_jButton22MouseClicked
 
+    private void DailyReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DailyReportMouseClicked
+        // TODO add your handling code here:
+        try{
+            DBHelper Objx = new DBHelper();
+            
+
+            String Date = "/";
+            DateFormat DateFor = new SimpleDateFormat("YYYY-MM-DD");
+            Date = DateFor.format(datepickerBar.getDate());
+
+            if(Date.equals("/")){
+                dateError.setText("Select Date");
+            }else{
+                Objx.GetDateDataSet(Date);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_DailyReportMouseClicked
+
+    private void BarReportsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BarReportsMouseClicked
+        // TODO add your handling code here:
+        PanelNavigation(evt);
+    }//GEN-LAST:event_BarReportsMouseClicked
+
+    private void DailyReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DailyReportActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DailyReportActionPerformed
+
     public void PanelNavigation(java.awt.event.MouseEvent evt){
         
         if(evt.getSource() == BarBilling){
             BarBillingInterface.setVisible(true);
             BarInventoryInterface.setVisible(false);
+            BarReportPanel.setVisible(false);
             System.out.println("BarBillingMouseClicked");
             
         }else if(evt.getSource() == BarInventory){
             BarBillingInterface.setVisible(false);
             BarInventoryInterface.setVisible(true);
+            BarReportPanel.setVisible(false);
             System.out.println("BarInventoryMouseClicked");
             
         }else if(evt.getSource() == BarReports){
-            
+            BarReportPanel.setVisible(true);
+            BarBillingInterface.setVisible(false);
+            BarInventoryInterface.setVisible(false);
         }else{
             changeFunction("Home");
         }
@@ -1195,17 +1329,28 @@ public class BarInterface extends javax.swing.JPanel {
         inoofstocks.setText("");
         iunitprice.setText("");
     }
+    
+     private void getBarOrderTable() {
+        DBHelper obj1 = new DBHelper();
+        ResultSet rs =  obj1.getBarOrderTable();
+        BarOrderTable.setModel(DbUtils.resultSetToTableModel(rs));
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BarBilling;
     private javax.swing.JPanel BarBillingInterface;
     private javax.swing.JButton BarInventory;
     private javax.swing.JPanel BarInventoryInterface;
+    private javax.swing.JTable BarOrderTable;
+    private javax.swing.JPanel BarReportPanel;
     private javax.swing.JButton BarReports;
     private javax.swing.JLabel CusID;
+    private javax.swing.JButton DailyReport;
     private javax.swing.JLabel DisInputError;
     private javax.swing.JButton Homebtn;
     private javax.swing.JLabel ItemIDError;
+    private javax.swing.JButton MonthlyReport;
     private javax.swing.JLabel QuntityError;
     private javax.swing.JPanel SideBar;
     private javax.swing.JLabel Tempvalholder;
@@ -1218,6 +1363,8 @@ public class BarInterface extends javax.swing.JPanel {
     private javax.swing.JButton chckbtn;
     private javax.swing.JButton clearbtn;
     private javax.swing.JTable customerbill;
+    private javax.swing.JLabel dateError;
+    private com.toedter.calendar.JDateChooser datepickerBar;
     private javax.swing.JButton deletebtn;
     private javax.swing.JTextField disfield;
     private javax.swing.JTextField ibrand;
@@ -1240,6 +1387,8 @@ public class BarInterface extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1252,6 +1401,7 @@ public class BarInterface extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

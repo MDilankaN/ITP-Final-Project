@@ -203,6 +203,7 @@ public final class TableModel {
     }
     public static class BOrder{
         public static final String BAR_Tb_N2 = "BarOrder";
+        public static final String BAR_COL2_2 = "Date";
         public static final String BAR_COL2_3 = "totalPrice";
         public static final String BAR_COL2_4 = "Discount";
         public static final String BAR_COL2_5 = "netAmount";
